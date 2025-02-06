@@ -38,7 +38,7 @@ namespace Infastructure.RepositoryFile
             {
                 var food = await _dbContext.FoodsEntity.FirstOrDefaultAsync(u => u.Name == foodName);
                 if(food == null)
-                    return new AddMealResponse(false, "Nu exista mancarea cu acest nume. Considera sa o adaugi!");
+                    return new AddMealResponse(false, $"Nu exista mancarea, {foodName}. Considera sa o adaugi!");
                 foodList.Add(food);
             }
 

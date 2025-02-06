@@ -1,16 +1,12 @@
 @WebAPI_HostAddress = http://localhost:5099
-
-GET {{WebAPI_HostAddress}}/api/food/getFoodByName/Brown%20Rice
+POST {{WebAPI_HostAddress}}/api/meal/addMeal
 Accept: application/json
 Content-Type: application/json
 {
-    "Name": "Salmon Fillet",
-    "Description": "A fatty fish rich in Omega-3 and protein.",
-    "HealthRank": "A",
-    "Calories100g": 208.0,
-    "Protein100g": 20.0,
-    "Carbohdryates100g": 0.0,
-    "Fats100g": 13.0
+    "Name": "Energy Boost Snack",
+    "Type": "Mic-Dejun",
+    "Description": "A high-energy snack with peanut butter and banana slices.",
+    "FoodNames": ["Peanut Butter", "Banana"]
 }
 
 ###
