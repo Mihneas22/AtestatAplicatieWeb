@@ -1,6 +1,16 @@
 @WebAPI_HostAddress = http://localhost:5099
 
-GET {{WebAPI_HostAddress}}/weatherforecast/
+GET {{WebAPI_HostAddress}}/api/food/getFoodByName/Brown%20Rice
 Accept: application/json
+Content-Type: application/json
+{
+    "Name": "Salmon Fillet",
+    "Description": "A fatty fish rich in Omega-3 and protein.",
+    "HealthRank": "A",
+    "Calories100g": 208.0,
+    "Protein100g": 20.0,
+    "Carbohdryates100g": 0.0,
+    "Fats100g": 13.0
+}
 
 ###

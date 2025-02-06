@@ -24,10 +24,10 @@ namespace WebAPI.Controllers
             return Ok(result!);
         }
 
-        [HttpGet("getFoodByName")]
-        public async Task<ActionResult<GetFoodByNameResponse>> GetFoodByNameAsync(GetFoodByNameDTO getFoodByNameDTO)
+        [HttpGet("getFoodByName/{name}")]
+        public async Task<ActionResult<GetFoodByNameResponse>> GetFoodByNameAsync(string name)
         {
-            var result = await foodRepo.GetFoodByNameAsync(getFoodByNameDTO);
+            var result = await foodRepo.GetFoodByNameAsync(new GetFoodByNameDTO { Name = name});
             return Ok(result!);
         }
     }

@@ -19,15 +19,15 @@ namespace Application.DTOs.FoodDTO.AddFood
         public char HealthRank { get; set; } = char.MinValue;
 
         [Required]
-        public double? Calories100g { get; set; } = double.MinValue;
+        public double Calories100g { get; set; } = double.MinValue;
 
         [Required]
-        public double? Protein100g { get; set; } = double.MinValue;
+        public double Protein100g { get; set; } = double.MinValue;
 
         [Required]
-        public double? Carbohdryates100g { get; set; } = double.MinValue;
+        public double Carbohdryates100g { get; set; } = double.MinValue;
 
         [Required]
-        public double? Fats100g { get; set; } = double.MinValue;
+        public double Fats100g { get; set; } = double.MinValue;
     }
 }

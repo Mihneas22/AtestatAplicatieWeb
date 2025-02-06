@@ -1,4 +1,6 @@
-﻿using Infastructure.Context;
+﻿using Application.Repository;
+using Infastructure.Context;
+using Infastructure.RepositoryFile;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +20,9 @@ namespace Infastructure.DependencyInjection
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly(typeof(ServiceContainer).Assembly.FullName)),
                 ServiceLifetime.Scoped);
+
+            services.AddScoped<IFood, FoodRepository>();
+            services.AddScoped<IMeal, MealRepository>();
 
             return services;
         }
