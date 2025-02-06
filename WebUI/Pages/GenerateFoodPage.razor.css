@@ -1,0 +1,27 @@
+﻿.colContainer{
+    display:flex;
+    justify-content:center;
+}
+
+.myCol {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.myContainer{
+    width: 100%;
+    height: 500px;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.foodButton {
+    width: 30%;
+    background: rgb(138,35,135);
+    background: linear-gradient(90deg, rgba(138,35,135,1) 48%, rgba(194,52,107,1) 72%, rgba(242,113,33,1) 93%);
+}
