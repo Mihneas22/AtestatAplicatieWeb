@@ -1,12 +1,13 @@
 @WebAPI_HostAddress = http://localhost:5099
-POST {{WebAPI_HostAddress}}/api/meal/addMeal
+GET {{WebAPI_HostAddress}}/api/meal/getRandomMeal
 Accept: application/json
 Content-Type: application/json
 {
-    "Name": "Energy Boost Snack",
-    "Type": "Mic-Dejun",
-    "Description": "A high-energy snack with peanut butter and banana slices.",
-    "FoodNames": ["Peanut Butter", "Banana"]
+    "Name": "Post-Workout Recovery Meal",
+    "Type": "Pranz",
+    "Description": "A high-protein meal for muscle recovery.",
+    "FoodNames": ["Tuna", "Quinoa", "Broccoli", "Almonds"]
+
 }
 
 ###

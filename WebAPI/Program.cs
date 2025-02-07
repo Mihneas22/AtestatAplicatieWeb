@@ -1,4 +1,5 @@
 using Infastructure.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +16,13 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseCors(policy =>
+    {
+        policy.WithOrigins("https://localhost:7280")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithHeaders(HeaderNames.ContentType);
+    });
 }
 
 app.UseHttpsRedirection();

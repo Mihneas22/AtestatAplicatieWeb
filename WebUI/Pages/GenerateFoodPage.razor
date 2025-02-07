@@ -1,22 +1,53 @@
 ﻿@page "/"
-
+@using Application.Services
+@using Domain.Models
+@inject IMealService mealService;
 
 <div class="myCol">
     <div class="myContainer">
-        <h4>Nume:</h4>
-        <h4>Pentru:</h4>
-        <h4>Ingrediente:</h4>
+        @if(mealData != null)
+        {
+            <h4>Nume: @mealData.Name</h4>
+            <h4>Pentru: @mealData.Type</h4>
+            <h4>Ingrediente:</h4>
+            <ul>
+                @foreach(var food in mealData.FoodNames!)
+                {
+                    <li>
+                        @food
+                    </li>
+                }
+            </ul>
 
-        <button class="foodButton">
-            Mai multe detalii
-        </button>
+            <button class="foodButton">
+                Mai multe detalii
+            </button>
+            <p>Result: @message</p>
+        }
+        else
+        {
+            <h4>Nimic...</h4>
+            <p>Result: @message</p>
+        }
     </div>
 
-    <button class="foodButton">
+    <button @onclick="GenerateAMeal" class="foodButton">
         Generate Meal
     </button>
 </div>
 
 @code {
+    private Meal? mealData { get; set; }
+    private string message { get; set; } = "";
 
+    private async Task GenerateAMeal()
+    {
+        var result = await mealService.GetRandomMealService();
+
+        if (result.Flag == true)
+        {
+            mealData = result.meal;
+        }
+        message = result.message;
+    }
 }
