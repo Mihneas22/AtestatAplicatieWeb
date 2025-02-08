@@ -1,4 +1,5 @@
-﻿using Application.DTOs.MealDTO.GetRandomMeal;
+﻿using Application.DTOs.MealDTO.GetMealByName;
+using Application.DTOs.MealDTO.GetRandomMeal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,7 @@ namespace Application.Services
     public interface IMealService
     {
         Task<GetRandomMealResponse> GetRandomMealService();
+
+        Task<GetMealByNameResponse> GetMealByNameService(GetMealByNameDTO getMealByNameDTO);
     }
 }

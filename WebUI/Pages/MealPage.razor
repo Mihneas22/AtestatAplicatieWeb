@@ -1,0 +1,36 @@
+﻿@page "/details/{name}"
+@using Application.Services
+@using Domain.Models
+@inject IMealService mealService;
+@inject IFoodService foodService;
+
+@if(meal != null)
+{
+    <p>Meal: @meal.Name</p>
+}
+
+@code {
+    [Parameter]
+    public string? Name { get; set; }
+
+    private string message { get; set; } = string.Empty;
+
+    private Meal? meal { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(Name == null)
+        {
+            message = "Nu exista mancarea...";
+        }else
+        {
+            var mealData = await mealService.GetMealByNameService(new Application.DTOs.MealDTO.GetMealByName.GetMealByNameDTO { Name = Name });
+            if (mealData.Flag == true)
+                meal = mealData.meal;
+            else
+                meal = null;
+
+            message = mealData.message;
+        }
+    }
+}

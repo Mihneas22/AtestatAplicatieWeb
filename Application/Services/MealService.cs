@@ -1,4 +1,6 @@
-﻿using Application.DTOs.MealDTO.GetRandomMeal;
+﻿using Application.DTOs.FoodDTO.GetFoodByName;
+using Application.DTOs.MealDTO.GetMealByName;
+using Application.DTOs.MealDTO.GetRandomMeal;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -22,6 +24,14 @@ namespace Application.Services
         {
             var conn = await _httpClient.GetAsync("api/meal/getRandomMeal");
             var result = await conn.Content.ReadFromJsonAsync<GetRandomMealResponse>();
+
+            return result!;
+        }
+
+        public async Task<GetMealByNameResponse> GetMealByNameService(GetMealByNameDTO getMealByNameDTO)
+        {
+            var conn = await _httpClient.GetAsync($"api/meal/getMealByName/{getMealByNameDTO.Name}");
+            var result = await conn.Content.ReadFromJsonAsync<GetMealByNameResponse>();
 
             return result!;
         }

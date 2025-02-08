@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.DTOs.FoodDTO.AddFood;
+using Application.DTOs.MealDTO.GetMealByName;
 
 namespace Infastructure.RepositoryFile
 {
@@ -55,6 +56,19 @@ namespace Infastructure.RepositoryFile
             await _dbContext.SaveChangesAsync();
 
             return new AddMealResponse(true, "Succes!");
+        }
+
+        public async Task<GetMealByNameResponse> GetMealByNameAsync(GetMealByNameDTO getMealByNameDTO)
+        {
+            if (getMealByNameDTO == null)
+                return new GetMealByNameResponse(false, "Date invalide...");
+
+            var meal = await _dbContext.MealsEntity.FirstOrDefaultAsync(u => u.Name == getMealByNameDTO.Name);
+
+            if(meal == null)
+                return new GetMealByNameResponse(false, "Nu exista...");
+            else
+                return new GetMealByNameResponse(true, "Succes!", meal);
         }
 
         public async Task<GetRandomMealResponse> GetRandomMealAsync()

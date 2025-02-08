@@ -1,5 +1,6 @@
 ﻿using Application.DTOs.FoodDTO.GetFoodByName;
 using Application.DTOs.MealDTO.AddMeal;
+using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,7 @@ namespace Application.Repository
         Task<AddMealResponse> AddMealAsync(AddMealDTO addMealDTO);
 
         Task<GetRandomMealResponse> GetRandomMealAsync();
+
+        Task<GetMealByNameResponse> GetMealByNameAsync(GetMealByNameDTO getMealByNameDTO);
     }
 }

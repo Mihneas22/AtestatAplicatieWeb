@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.MealDTO.AddMeal;
+using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
 using Application.Repository;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +29,13 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<GetRandomMealResponse>> GetRandomMealAsync()
         {
             var result = await mealRepo.GetRandomMealAsync();
+            return Ok(result);
+        }
+
+        [HttpGet("getMealByName/{name}")]
+        public async Task<ActionResult<GetMealByNameResponse>> GetMealByNameAsync(string name)
+        {
+            var result = await mealRepo.GetMealByNameAsync(new GetMealByNameDTO { Name = name });
             return Ok(result);
         }
     }
