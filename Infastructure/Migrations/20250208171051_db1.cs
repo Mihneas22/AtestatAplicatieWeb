@@ -11,23 +11,6 @@ namespace Infastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "MealsEntity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Likes = table.Column<int>(type: "int", nullable: true),
-                    FoodNames = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MealsEntity", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "FoodsEntity",
                 columns: table => new
                 {
@@ -39,23 +22,30 @@ namespace Infastructure.Migrations
                     Calories100g = table.Column<double>(type: "float", nullable: true),
                     Protein100g = table.Column<double>(type: "float", nullable: true),
                     Carbohdryates100g = table.Column<double>(type: "float", nullable: true),
-                    Fats100g = table.Column<double>(type: "float", nullable: true),
-                    MealId = table.Column<int>(type: "int", nullable: true)
+                    Fats100g = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FoodsEntity", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FoodsEntity_MealsEntity_MealId",
-                        column: x => x.MealId,
-                        principalTable: "MealsEntity",
-                        principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_FoodsEntity_MealId",
-                table: "FoodsEntity",
-                column: "MealId");
+            migrationBuilder.CreateTable(
+                name: "MealsEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Likes = table.Column<int>(type: "int", nullable: true),
+                    FoodNames = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FoodWeights = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MealsEntity", x => x.Id);
+                });
         }
 
         /// <inheritdoc />

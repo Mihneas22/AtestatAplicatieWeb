@@ -20,8 +20,8 @@ namespace Domain.Models
 
         public int? Likes { get; set; }
 
-        public List<string>? FoodNames {  get; set; }
+        public List<string>? FoodNames { get; set; }
 
-        public List<Food>? Foods { get; set; }
+        public List<int>? FoodWeights { get; set; }
     }
 }

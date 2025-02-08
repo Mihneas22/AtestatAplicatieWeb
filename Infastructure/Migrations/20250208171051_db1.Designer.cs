@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250206162657_db1")]
+    [Migration("20250208171051_db1")]
     partial class db1
     {
         /// <inheritdoc />
@@ -47,9 +47,6 @@ namespace Infastructure.Migrations
                     b.Property<string>("HealthRank")
                         .HasColumnType("nvarchar(1)");
 
-                    b.Property<int?>("MealId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -57,8 +54,6 @@ namespace Infastructure.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MealId");
 
                     b.ToTable("FoodsEntity");
                 });
@@ -77,6 +72,9 @@ namespace Infastructure.Migrations
                     b.PrimitiveCollection<string>("FoodNames")
                         .HasColumnType("nvarchar(max)");
 
+                    b.PrimitiveCollection<string>("FoodWeights")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
 
@@ -89,18 +87,6 @@ namespace Infastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MealsEntity");
-                });
-
-            modelBuilder.Entity("Domain.Models.Food", b =>
-                {
-                    b.HasOne("Domain.Models.Meal", null)
-                        .WithMany("Foods")
-                        .HasForeignKey("MealId");
-                });
-
-            modelBuilder.Entity("Domain.Models.Meal", b =>
-                {
-                    b.Navigation("Foods");
                 });
 #pragma warning restore 612, 618
         }

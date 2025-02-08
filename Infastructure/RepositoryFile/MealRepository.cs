@@ -50,7 +50,7 @@ namespace Infastructure.RepositoryFile
                 Description = addMealDTO.Description,
                 FoodNames = addMealDTO.FoodNames,
                 Likes = 0,
-                Foods = foodList
+                FoodWeights = addMealDTO.FoodWeights
             });
 
             await _dbContext.SaveChangesAsync();

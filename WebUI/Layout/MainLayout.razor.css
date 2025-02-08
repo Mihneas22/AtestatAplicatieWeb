@@ -1,11 +1,8 @@
 .myPage {
-    background: rgb(138,35,135);
-    background: linear-gradient(90deg, rgba(138,35,135,1) 68%, rgba(233,64,87,1) 89%, rgba(242,113,33,1) 93%);
-    font-family: Arial;
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: end
+    flex-direction: column;
 }
 
 .page {

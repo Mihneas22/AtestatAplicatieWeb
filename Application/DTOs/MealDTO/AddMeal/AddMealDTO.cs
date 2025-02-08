@@ -21,5 +21,8 @@ namespace Application.DTOs.MealDTO.AddMeal
 
         [Required]
         public List<string> FoodNames { get; set; } = new List<string>();
+
+        [Required]
+        public List<int> FoodWeights { get; set; } = new List<int>();
     }
 }

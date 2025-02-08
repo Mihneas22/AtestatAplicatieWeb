@@ -1,34 +1,83 @@
-﻿.colContainer{
-    display:flex;
-    justify-content:center;
+﻿.main-container {
+    width: 40%;
+    height: 700px;
+    border-style: solid;
+    border-width: 3px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
-.myCol {
-    width: 40%;
+.title{
+    margin-top: 40px;
+}
+
+.text-container {
+    width:50%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    margin-top: 100px;
 }
 
-.a{
-    text-decoration:none;
-}
-
-.myContainer{
-    width: 100%;
-    height: 500px;
+.detailsButton {
+    width: 200px;
+    height: 40px;
     background-color: gray;
+    border-style: solid;
+    border-width: 1px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
-.foodButton {
-    width: 30%;
-    background: rgb(138,35,135);
-    background: linear-gradient(90deg, rgba(138,35,135,1) 48%, rgba(194,52,107,1) 72%, rgba(242,113,33,1) 93%);
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.detailsButton:hover{
+    background-color: orangered;
+}
+
+.generateMealButton {
+    width: 200px;
+    height: 40px;
+    background-color: gray;
+    border-style: solid;
+    border-width: 1px;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.generateMealButton:hover{
+    background-color: orangered;
+}
+
+.likesButton {
+    height: 40px;
+    width: 40px;
+    background-color: gray;
+    border-style: solid;
+    border-width: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.likesButton:hover{
+    background-color: orangered; 
+}
+
+.myRow {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.pel{
+    margin-top: 15px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
 }
