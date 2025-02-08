@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.FoodDTO.GetFoodByName;
+using Application.DTOs.MealDTO.AddLikeToMeal;
 using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
 using Domain.Models;
@@ -32,6 +33,14 @@ namespace Application.Services
         {
             var conn = await _httpClient.GetAsync($"api/meal/getMealByName/{getMealByNameDTO.Name}");
             var result = await conn.Content.ReadFromJsonAsync<GetMealByNameResponse>();
+
+            return result!;
+        }
+
+        public async Task<AddLikeToMealResponse> AddLikeToMealService(AddLikeToMealDTO addLikeToMealDTO)
+        {
+            var conn = await _httpClient.PostAsJsonAsync("api/meal/addLikeToMeal",addLikeToMealDTO);
+            var result = await conn.Content.ReadFromJsonAsync<AddLikeToMealResponse>();
 
             return result!;
         }

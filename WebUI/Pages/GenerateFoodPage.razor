@@ -22,7 +22,7 @@
                 </div>
             </a>
 
-            <div class="likesButton">
+            <div @onclick="AddLike" class="likesButton">
                 <p class="pel">Like</p>
             </div>
         </div>
@@ -46,5 +46,14 @@
             mealData = result.meal;
         }
         message = result.message;
+    }
+
+    private async Task AddLike()
+    {
+        if(mealData != null)
+        {
+            await mealService.AddLikeToMealService(new Application.DTOs.MealDTO.AddLikeToMeal.AddLikeToMealDTO { NameOfMeal = mealData.Name! });
+            mealData.Likes += 1;
+        }
     }
 }

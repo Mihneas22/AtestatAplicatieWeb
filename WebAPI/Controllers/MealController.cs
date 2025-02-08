@@ -1,4 +1,5 @@
-﻿using Application.DTOs.MealDTO.AddMeal;
+﻿using Application.DTOs.MealDTO.AddLikeToMeal;
+using Application.DTOs.MealDTO.AddMeal;
 using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
 using Application.Repository;
@@ -22,6 +23,13 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<AddMealResponse>> AddMealAsync(AddMealDTO addMealDTO)
         {
             var result = await mealRepo.AddMealAsync(addMealDTO);
+            return Ok(result);
+        }
+
+        [HttpPost("addLikeToMeal")]
+        public async Task<ActionResult<AddLikeToMealResponse>> AddLikeToMealAsync(AddLikeToMealDTO addLikeToMealDTO)
+        {
+            var result = await mealRepo.AddLikeToMealAsync(addLikeToMealDTO);
             return Ok(result);
         }
 

@@ -1,5 +1,5 @@
 @WebAPI_HostAddress = http://localhost:5099
-POST {{WebAPI_HostAddress}}/api/meal/addMeal
+POST {{WebAPI_HostAddress}}/api/meal/addLikeToMeal/{name}
 Accept: application/json
 Content-Type: application/json
 {   "Name": "Peanut Butter Banana Wrap",

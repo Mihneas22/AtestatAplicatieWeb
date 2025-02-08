@@ -1,12 +1,7 @@
-﻿using Application.DTOs.FoodDTO.GetFoodByName;
+﻿using Application.DTOs.MealDTO.AddLikeToMeal;
 using Application.DTOs.MealDTO.AddMeal;
 using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Repository
 {
@@ -17,5 +12,7 @@ namespace Application.Repository
         Task<GetRandomMealResponse> GetRandomMealAsync();
 
         Task<GetMealByNameResponse> GetMealByNameAsync(GetMealByNameDTO getMealByNameDTO);
+
+        Task<AddLikeToMealResponse> AddLikeToMealAsync(AddLikeToMealDTO addLikeToMealDTO);
     }
 }

@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Application.DTOs.FoodDTO.AddFood;
 using Application.DTOs.MealDTO.GetMealByName;
+using Application.DTOs.MealDTO.AddLikeToMeal;
 
 namespace Infastructure.RepositoryFile
 {
@@ -21,6 +22,22 @@ namespace Infastructure.RepositoryFile
         public MealRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<AddLikeToMealResponse> AddLikeToMealAsync(AddLikeToMealDTO addLikeToMealDTO)
+        {
+            if(addLikeToMealDTO == null)
+                return new AddLikeToMealResponse(false,"Date invalide...");
+
+            var meal = await _dbContext.MealsEntity.FirstOrDefaultAsync(u => u.Name == addLikeToMealDTO.NameOfMeal);
+
+            if(meal == null)
+                return new AddLikeToMealResponse(false, "Meniu invalid...");
+
+            meal.Likes += 1;
+            await _dbContext.SaveChangesAsync();
+
+            return new AddLikeToMealResponse(true, "Success!");
         }
 
         public async Task<AddMealResponse> AddMealAsync(AddMealDTO addMealDTO)

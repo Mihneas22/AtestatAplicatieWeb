@@ -1,4 +1,5 @@
-﻿using Application.DTOs.MealDTO.GetMealByName;
+﻿using Application.DTOs.MealDTO.AddLikeToMeal;
+using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace Application.Services
         Task<GetRandomMealResponse> GetRandomMealService();
 
         Task<GetMealByNameResponse> GetMealByNameService(GetMealByNameDTO getMealByNameDTO);
+    
+        Task<AddLikeToMealResponse> AddLikeToMealService(AddLikeToMealDTO addLikeToMealDTO);
     }
 }
