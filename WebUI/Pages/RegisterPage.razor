@@ -1,0 +1,31 @@
+﻿@page "/register"
+@inject IUserService userService;
+@inject NavigationManager navManager;
+@using Application.DTOs.AuthDTO.Register
+@using Application.Services
+
+<EditForm Model="registerDTO" OnSubmit="RegisterUserAsync">
+    <label for="username">Username</label>
+    <InputText id="username" @bind-Value="registerDTO.Username">@registerDTO.Username</InputText>
+
+    <label for="email">Email</label>
+    <InputText id="email" @bind-Value="registerDTO.Email">@registerDTO.Email</InputText>
+
+    <label for="password">Email</label>
+    <InputText id="password" @bind-Value="registerDTO.Password">@registerDTO.Password</InputText>
+
+    <label for="conf_pass">Confirm Password</label>
+    <InputText id="conf_pass" @bind-Value="registerDTO.ConfirmPassword">@registerDTO.ConfirmPassword</InputText>
+
+    <button type="submit">Register</button>
+</EditForm>
+
+@code {
+    RegisterDTO registerDTO = new();
+    private async Task RegisterUserAsync()
+    {
+        var result = await userService.RegisterUserService(registerDTO);
+        if (result != null)
+            navManager.NavigateTo("/login", forceLoad: true);
+    }
+}

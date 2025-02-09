@@ -17,7 +17,7 @@ namespace Infastructure.Context
         }
 
         public DbSet<Food> FoodsEntity { get; set; }
-
         public DbSet<Meal> MealsEntity { get; set; }
+        public DbSet<User> UsersEntity { get; set; }
     }
 }

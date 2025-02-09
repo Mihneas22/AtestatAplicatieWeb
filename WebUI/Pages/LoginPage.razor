@@ -1,0 +1,32 @@
+﻿@page "/login"
+
+@inject IUserService userService;
+@inject NavigationManager navManager;
+@using Application.DTOs.AuthDTO.Login
+@using Application.Services
+@using WebUI.State
+
+<EditForm Model="loginDTO" OnSubmit="LoginAsync">
+    <label for="email">Email</label>
+    <InputText id="email" @bind-Value="loginDTO.Email">@loginDTO.Email</InputText>
+
+    <label for="password">Email</label>
+    <InputText id="password" @bind-Value="loginDTO.Password">@loginDTO.Password</InputText>
+
+    <button type="submit">Login</button>
+</EditForm>
+
+
+@code {
+    LoginDTO loginDTO = new();
+    private async Task LoginAsync()
+    {
+        var result = await userService.LoginUserService(loginDTO);
+        if (result.Flag)
+        {
+            var customAuthStateProvider = (CustomAuthStateProvider)authProvider;
+            await customAuthStateProvider.UpdateAuthState(result.Token);
+            navManager.NavigateTo("/", forceLoad: true);
+        }
+    }
+}
