@@ -6,15 +6,17 @@
 @using Application.Services
 @using WebUI.State
 
-<EditForm Model="loginDTO" OnSubmit="LoginAsync">
-    <label for="email">Email</label>
-    <InputText id="email" @bind-Value="loginDTO.Email">@loginDTO.Email</InputText>
+<div class="login-container">
+    <EditForm class="EditFormContainer" Model="loginDTO" OnSubmit="LoginAsync">
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="loginDTO.Email">@loginDTO.Email</InputText>
 
-    <label for="password">Email</label>
-    <InputText id="password" @bind-Value="loginDTO.Password">@loginDTO.Password</InputText>
+        <label for="password">Password</label>
+        <InputText id="password" @bind-Value="loginDTO.Password">@loginDTO.Password</InputText>
 
-    <button type="submit">Login</button>
-</EditForm>
+        <button type="submit">Login</button>
+    </EditForm>
+</div>
 
 
 @code {

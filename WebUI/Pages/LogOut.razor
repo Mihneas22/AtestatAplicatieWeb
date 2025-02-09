@@ -1,0 +1,12 @@
+﻿@page "/logout"
+@using WebUI.State
+@inject NavigationManager navManager;
+
+@code {
+    protected async override Task OnInitializedAsync()
+    {
+        var customAuthStateProvider = (CustomAuthStateProvider)authProvider;
+        await customAuthStateProvider.UpdateAuthState(null!);
+        navManager.NavigateTo("/login", forceLoad: true);
+    }
+}
