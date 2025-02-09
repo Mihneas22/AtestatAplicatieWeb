@@ -1,13 +1,65 @@
 ﻿@page "/details/{name}"
 @using Application.Services
 @using Domain.Models
+@using Domain.UseCases;
 @inject IMealService mealService;
 @inject IFoodService foodService;
 
-@if(meal != null)
-{
-    <p>Meal: @meal.Name</p>
-}
+<MyHeader></MyHeader>
+
+<div class="meal-card">
+    @if(meal != null)
+    {
+        <div class="title-text">@meal.Name</div>
+
+        <div class="meal-row">
+            <div class="type-container">
+                <div class="type-text">@meal.Type</div>
+            </div>
+
+            <div class="likeRow">
+                <span class="likeText">&#129293;</span>
+                <span class="likeText">@meal.Likes</span>
+            </div>
+        </div>
+
+        <div class="descriptionText">@meal.Description</div>
+
+        <div class="foods">Foods</div>
+        <div class="meal-row-1">
+            @if (meal.FoodNames != null && meal.FoodWeights != null)
+            {
+                <ul>
+                    @for (int i = 0; i < meal.FoodWeights.Count; i++)
+                    {
+                        <li>@meal.FoodNames[i] / @meal.FoodWeights[i]g</li>
+                    }
+                </ul>
+
+                <ul>
+                    @for (int i = 0; i < macros.Count; i++)
+                    {
+                        if(i==0)
+                        {
+                            <li>@string.Format("{0:F2}", macros[i]) kcal</li>
+                        }else if(i==1)
+                        {
+                            <li>@string.Format("{0:F2}", macros[i]) g protein</li>
+                        }
+                        else if (i == 2)
+                        {
+                            <li>@string.Format("{0:F2}", macros[i]) g carbs</li>
+                        }
+                        else if (i == 3)
+                        {
+                            <li>@string.Format("{0:F2}", macros[i]) g fats</li>
+                        }
+                    }
+                </ul>
+            }
+        </div>
+    }
+</div>
 
 @code {
     [Parameter]
@@ -17,6 +69,13 @@
 
     private Meal? meal { get; set; }
 
+    private List<double?> macros { get; set; } = new List<double?>();
+    /*
+    * i=0 -> calories
+    * i=1 -> proteins
+    * i=2 -> carbs
+    * i=3 -> fats
+    */
     protected override async Task OnInitializedAsync()
     {
         if(Name == null)
@@ -26,7 +85,24 @@
         {
             var mealData = await mealService.GetMealByNameService(new Application.DTOs.MealDTO.GetMealByName.GetMealByNameDTO { Name = Name });
             if (mealData.Flag == true)
+            {
+                List<Food> foodsList = new List<Food>();
+
                 meal = mealData.meal;
+                foreach(var foodName in meal.FoodNames!)
+                {
+                    var food = await foodService.GetFoodByNameAsync(new Application.DTOs.FoodDTO.GetFoodByName.GetFoodByNameDTO { Name = foodName });
+                    if(food.Flag == true)
+                    {
+                        foodsList.Add(food.Food);
+                    }
+                }
+
+                if(foodsList.Count == meal.FoodWeights!.Count)
+                {
+                    macros = new MealNutrientsUseCase().MealNutrientsUseCaseMethod(foodsList, meal.FoodWeights!);
+                }
+            }
             else
                 meal = null;
 
