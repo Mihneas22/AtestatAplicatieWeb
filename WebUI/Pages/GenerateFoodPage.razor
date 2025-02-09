@@ -6,34 +6,37 @@
 <MyHeader></MyHeader>
 
 <div class="main-container">
-    <h1 class="title">Generate a meal!</h1>
 
     @if(mealData != null)
     {
-        <div class="text-container">
-            <h4>Name: @mealData.Name</h4>
-            <h4>Description: @mealData.Description</h4>
-            <h4>For: @mealData.Type</h4>
-            <h4>Likes: @mealData.Likes</h4>
+        <div class="orderText">
+            <div class="myTextBold"> @mealData.Name</div>
+            <div class="myText">For: @mealData.Type</div>
         </div>
 
         <div class="myRow">
-            <a href="details/@mealData.Name">
-                <div class="detailsButton">
-                    <p class="pel">More Details</p>
-                </div>
+            <a>
+                <span @onclick="AddLike">&#129505;</span>
             </a>
 
-            <div @onclick="AddLike" class="likesButton">
-                <p class="pel">Like</p>
-            </div>
+
+            <a href="details/@mealData.Name">
+                <div class="moreDetailsButton">
+                    <p>Details</p>
+                </div>
+            </a>
         </div>
     }
-
-    <div @onclick="GenerateAMeal" class="generateMealButton">
-        <p class="pel">Generate Meal</p>
-    </div>
+    else
+    {
+        <div class="myText">Welcome to</div>
+        <div class="myText">meal.generator</div>
+    }
 </div>
+
+<button @onclick="GenerateAMeal" class="generateMealButton">
+    <p>Generate Meal</p>
+</button>
 
 @code {
     private Meal? mealData { get; set; }

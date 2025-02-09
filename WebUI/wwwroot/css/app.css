@@ -1,3 +1,14 @@
+
+@font-face{
+    font-family: "Anton-Regular";
+    src: url('../fonts/Anton-Regular.ttf')
+}
+
+@font-face {
+    font-family: "DM-Sans";
+    src: url('../fonts/DMSans-Regular.ttf')
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
