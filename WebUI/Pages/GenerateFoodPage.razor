@@ -10,9 +10,6 @@
         <span class="text-muted m-lg-2 mr-2 p-2">
             @context.User.Identity!.Name
         </span>
-    </Authorized>
-</AuthorizeView>
-
 <div class="main-container">
 
     @if(mealData != null)
@@ -45,6 +42,16 @@
 <button @onclick="GenerateAMeal" class="generateMealButton">
     <p>Generate Meal</p>
 </button>
+
+    </Authorized>
+
+    <NotAuthorized>
+        <div class="main-container">
+            <h3>Please login in first :)</h3>
+        </div>
+    </NotAuthorized>
+
+</AuthorizeView>
 
 @code {
     private Meal? mealData { get; set; }
