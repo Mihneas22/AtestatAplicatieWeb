@@ -1,0 +1,24 @@
+﻿@page "/profile/{username}"
+@using Application.Services
+@using Domain.Models
+@inject IUserService userService;
+
+@if(userData != null)
+{
+    <h1>@userData.Username</h1>
+    <h1>@userData.Email</h1>
+}
+
+@code {
+    [Parameter]
+    public string? username { get; set; }
+
+    private User? userData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await userService.GetUserByNameService(new Application.DTOs.UserDTO.GetUserByName.GetUserByNameDTO { Username = username });
+        if (response.Flag == true)
+            userData = response.user;
+    }
+}

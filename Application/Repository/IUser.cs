@@ -2,6 +2,7 @@
 using Application.DTOs.AuthDTO.Register;
 using Application.DTOs.UserDTO.AcceptFriendsRequest;
 using Application.DTOs.UserDTO.AddFriends;
+using Application.DTOs.UserDTO.GetUserByName;
 using Application.DTOs.UserDTO.RemoveFriends;
 using System;
 using System.Collections.Generic;
@@ -22,5 +23,7 @@ namespace Application.Repository
         Task<RemoveFriendResponse> RemoveFriendAsync(RemoveFriendDTO removeFriendDTO);
 
         Task<AcceptFriendRequestResponse> AcceptFriendRequestAsync(AcceptFriendRequestDTO acceptFriendRequestDTO);
+    
+        Task<GetUserByNameResponse> GetUserByNameAsync(GetUserByNameDTO getUserByNameDTO);
     }
 }
