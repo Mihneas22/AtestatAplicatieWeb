@@ -18,6 +18,8 @@ namespace Domain.Models
 
         public string? Password { get; set; }
 
+        public List<string>? Friends {  get; set; }
+
         public List<string>? MealsSaved { get; set; }
 
         public DateTime? CreatedTime { get; set; }

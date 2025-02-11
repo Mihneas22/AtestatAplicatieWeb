@@ -1,11 +1,8 @@
 @WebAPI_HostAddress = http://localhost:5099
-POST {{WebAPI_HostAddress}}/api/meal/addLikeToMeal/{name}
+POST {{WebAPI_HostAddress}}/api/meal/addLikeToMeal
 Accept: application/json
 Content-Type: application/json
-{   "Name": "Peanut Butter Banana Wrap",
-    "Type": "Mic-Dejun",
-    "Description": "A quick and filling breakfast with peanut butter, banana, and a whole wheat tortilla.",
-    "FoodNames": ["Peanut Butter", "Banana", "Whole Wheat Tortilla"],
-    "FoodWeights": [30, 100, 50]
+{    "NameOfMeal": "Light Dinner",
+     "NameOfUser": "Mihneas22"
 }
 ###

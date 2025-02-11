@@ -83,6 +83,7 @@ namespace Infastructure.RepositoryFile
                 Email = registerDTO.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(registerDTO.Password),
                 MealsSaved = new List<string>(),
+                Friends = new List<string>(),
                 CreatedTime = DateTime.Now,
             });
 

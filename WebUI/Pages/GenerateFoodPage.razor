@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using Application.Services
 @using Domain.Models
+@using WebUI.State
 @inject IMealService mealService;
 
 <MyHeader></MyHeader>
@@ -10,38 +11,38 @@
         <span class="text-muted m-lg-2 mr-2 p-2">
             @context.User.Identity!.Name
         </span>
-<div class="main-container">
+        <div class="main-container">
 
-    @if(mealData != null)
-    {
-        <div class="orderText">
-            <div class="myTextBold"> @mealData.Name</div>
-            <div class="myText">For: @mealData.Type</div>
-        </div>
-
-        <div class="myRow">
-            <a>
-                <span @onclick="AddLike">&#129505;</span>
-            </a>
-
-
-            <a href="details/@mealData.Name">
-                <div class="moreDetailsButton">
-                    <p>Details</p>
+            @if(mealData != null)
+            {
+                <div class="orderText">
+                    <div class="myTextBold"> @mealData.Name</div>
+                    <div class="myText">For: @mealData.Type</div>
                 </div>
-            </a>
-        </div>
-    }
-    else
-    {
-        <div class="myText">Welcome to</div>
-        <div class="myText">meal.generator</div>
-    }
-</div>
 
-<button @onclick="GenerateAMeal" class="generateMealButton">
-    <p>Generate Meal</p>
-</button>
+                <div class="myRow">
+                    <a>
+                        <span @onclick="AddLike">&#129505;</span>
+                    </a>
+
+
+                    <a href="details/@mealData.Name">
+                        <div class="moreDetailsButton">
+                            <p>Details</p>
+                        </div>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="myText">Welcome to</div>
+                <div class="myText">meal.generator</div>
+            }
+        </div>
+
+        <button @onclick="GenerateAMeal" class="generateMealButton">
+            <p>Generate Meal</p>
+        </button>
 
     </Authorized>
 
@@ -56,6 +57,8 @@
 @code {
     private Meal? mealData { get; set; }
     private string message { get; set; } = "";
+
+
 
     private async Task GenerateAMeal()
     {
@@ -72,8 +75,14 @@
     {
         if(mealData != null)
         {
-            await mealService.AddLikeToMealService(new Application.DTOs.MealDTO.AddLikeToMeal.AddLikeToMealDTO { NameOfMeal = mealData.Name! });
-            mealData.Likes += 1;
+            var customAuthStateProvider = (CustomAuthStateProvider)authProvider;
+            var state = await customAuthStateProvider.GetAuthenticationStateAsync();
+
+            if (state.User.Identity!.Name != null)
+            {
+                await mealService.AddLikeToMealService(new Application.DTOs.MealDTO.AddLikeToMeal.AddLikeToMealDTO { NameOfMeal = mealData.Name!, NameOfUser = state.User.Identity.Name });
+                mealData.Likes += 1;
+            }
         }
     }
 }

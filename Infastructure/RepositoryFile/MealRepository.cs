@@ -34,7 +34,15 @@ namespace Infastructure.RepositoryFile
             if(meal == null)
                 return new AddLikeToMealResponse(false, "Meniu invalid...");
 
+            if(meal.PersonsLiked != null)
+                foreach (var persons in meal.PersonsLiked)
+                {
+                    if (persons == addLikeToMealDTO.NameOfUser)
+                        return new AddLikeToMealResponse(false, "Ai dat deja like...");
+                }
+
             meal.Likes += 1;
+            meal.PersonsLiked!.Add(addLikeToMealDTO.NameOfUser);
             await _dbContext.SaveChangesAsync();
 
             return new AddLikeToMealResponse(true, "Success!");
@@ -67,6 +75,7 @@ namespace Infastructure.RepositoryFile
                 Description = addMealDTO.Description,
                 FoodNames = addMealDTO.FoodNames,
                 Likes = 0,
+                PersonsLiked = new List<string>(),
                 FoodWeights = addMealDTO.FoodWeights
             });
 

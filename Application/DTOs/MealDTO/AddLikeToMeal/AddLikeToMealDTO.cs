@@ -11,5 +11,8 @@ namespace Application.DTOs.MealDTO.AddLikeToMeal
     {
         [Required]
         public string NameOfMeal { get; set; } = string.Empty;
+
+        [Required]
+        public string NameOfUser {  get; set; } = string.Empty;
     }
 }
