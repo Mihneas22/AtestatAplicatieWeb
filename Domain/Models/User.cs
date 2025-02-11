@@ -20,6 +20,10 @@ namespace Domain.Models
 
         public List<string>? Friends {  get; set; }
 
+        public List<string>? FriendsPending { get; set; }
+
+        public List<string>? Inbox { get; set; }
+
         public List<string>? MealsSaved { get; set; }
 
         public DateTime? CreatedTime { get; set; }

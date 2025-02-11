@@ -1,5 +1,8 @@
 ﻿using Application.DTOs.AuthDTO.Login;
 using Application.DTOs.AuthDTO.Register;
+using Application.DTOs.UserDTO.AcceptFriendsRequest;
+using Application.DTOs.UserDTO.AddFriends;
+using Application.DTOs.UserDTO.RemoveFriends;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +21,20 @@ namespace Application.Services
             _httpClient = httpClient;
         }
 
+        public async Task<AcceptFriendRequestResponse> AcceptFriendRequestService(AcceptFriendRequestDTO acceptFriendRequestDTO)
+        {
+            var conn = await _httpClient.PostAsJsonAsync("api/user/acceptFriendRequest", acceptFriendRequestDTO);
+            var result = await conn.Content.ReadFromJsonAsync<AcceptFriendRequestResponse>();
+            return result!;
+        }
+
+        public async Task<AddFriendResponse> AddFriendService(AddFriendDTO addFriendDTO)
+        {
+            var conn = await _httpClient.PostAsJsonAsync("api/user/addFriend", addFriendDTO);
+            var result = await conn.Content.ReadFromJsonAsync<AddFriendResponse>();
+            return result!;
+        }
+
         public async Task<LoginResponse> LoginUserService(LoginDTO loginDTO)
         {
             var conn = await _httpClient.PostAsJsonAsync("api/user/loginUser", loginDTO);
@@ -29,6 +46,13 @@ namespace Application.Services
         {
             var conn = await _httpClient.PostAsJsonAsync("api/user/registerUser", registerDTO);
             var result = await conn.Content.ReadFromJsonAsync<RegisterResponse>();
+            return result!;
+        }
+
+        public async Task<RemoveFriendResponse> RemoveFriendService(RemoveFriendDTO removeFriendDTO)
+        {
+            var conn = await _httpClient.PostAsJsonAsync("api/user/removeFriend", removeFriendDTO);
+            var result = await conn.Content.ReadFromJsonAsync<RemoveFriendResponse>();
             return result!;
         }
     }

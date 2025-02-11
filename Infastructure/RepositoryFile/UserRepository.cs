@@ -1,5 +1,8 @@
 ﻿using Application.DTOs.AuthDTO.Login;
 using Application.DTOs.AuthDTO.Register;
+using Application.DTOs.UserDTO.AcceptFriendsRequest;
+using Application.DTOs.UserDTO.AddFriends;
+using Application.DTOs.UserDTO.RemoveFriends;
 using Application.Repository;
 using BCrypt.Net;
 using Domain.Models;
@@ -83,13 +86,70 @@ namespace Infastructure.RepositoryFile
                 Email = registerDTO.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(registerDTO.Password),
                 MealsSaved = new List<string>(),
+                FriendsPending = new List<string>(),
                 Friends = new List<string>(),
+                Inbox = new List<string>(),
                 CreatedTime = DateTime.Now,
             });
 
             await _dbContext.SaveChangesAsync();
 
             return new RegisterResponse(true, "Succes, va puteti loga acum!");
+        }
+
+        public async Task<AddFriendResponse> AddFriendAsync(AddFriendDTO addFriendDTO)
+        {
+            if (addFriendDTO == null)
+                return new AddFriendResponse(false, "Date invalide...");
+
+            var user2 = await _dbContext.UsersEntity.FirstOrDefaultAsync(u => u.Username == addFriendDTO.NameWhoRecieved);
+
+            if(user2 == null)
+                return new AddFriendResponse(false, "User nu a fost gasit...");
+
+            user2.Inbox!.Add($"You have a friend request from: {addFriendDTO.NameWhoRequested}");
+            user2.FriendsPending!.Add(addFriendDTO.NameWhoRequested);
+            await _dbContext.SaveChangesAsync();
+
+            return new AddFriendResponse(true, "Succes!");
+        }
+
+        public async Task<RemoveFriendResponse> RemoveFriendAsync(RemoveFriendDTO removeFriendDTO)
+        {
+            if (removeFriendDTO == null)
+                return new RemoveFriendResponse(false, "Date invalide...");
+
+            var user2 = await _dbContext.UsersEntity.FirstOrDefaultAsync(u => u.Username == removeFriendDTO.NameWhoWasRemoved);
+
+            if (user2 == null)
+                return new RemoveFriendResponse(false, "User nu a fost gasit...");
+
+            user2.Friends!.Remove(user2.Username!);
+            await _dbContext.SaveChangesAsync();
+
+            return new RemoveFriendResponse(true, "Succes!");
+        }
+
+        public async Task<AcceptFriendRequestResponse> AcceptFriendRequestAsync(AcceptFriendRequestDTO acceptFriendRequestDTO)
+        {
+            if (acceptFriendRequestDTO == null)
+                return new AcceptFriendRequestResponse(false, "Date invalide...");
+
+            var userWhoRecievedRequest = await _dbContext.UsersEntity.FirstOrDefaultAsync(u => u.Username == acceptFriendRequestDTO.NameWhoRecieved);
+            var userWhoSendedRequest = await _dbContext.UsersEntity.FirstOrDefaultAsync(u => u.Username == acceptFriendRequestDTO.NameWhoRequested);
+
+            if(userWhoRecievedRequest == null || userWhoSendedRequest == null)
+                return new AcceptFriendRequestResponse(false, "Unul dintre useri este invalid.");
+
+            if (acceptFriendRequestDTO.Status == true)
+            {
+                userWhoRecievedRequest.Friends!.Add(userWhoSendedRequest.Username!);
+                userWhoSendedRequest.Friends!.Add(userWhoRecievedRequest.Username!);
+
+                userWhoRecievedRequest.FriendsPending!.Remove(userWhoSendedRequest.Username!);
+                await _dbContext.SaveChangesAsync();
+            }
+            return new AcceptFriendRequestResponse(true, "Succes!");
         }
     }
 }

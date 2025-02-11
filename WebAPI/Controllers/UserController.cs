@@ -1,5 +1,8 @@
 ﻿using Application.DTOs.AuthDTO.Login;
 using Application.DTOs.AuthDTO.Register;
+using Application.DTOs.UserDTO.AcceptFriendsRequest;
+using Application.DTOs.UserDTO.AddFriends;
+using Application.DTOs.UserDTO.RemoveFriends;
 using Application.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,9 +28,30 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("loginUser")]
-        public async Task<ActionResult<LoginResponse>> LoginResponseAsync(LoginDTO loginDTO)
+        public async Task<ActionResult<LoginResponse>> LoginUserAsync(LoginDTO loginDTO)
         {
             var result = await userRepo.LoginUserAsync(loginDTO);
+            return Ok(result);
+        }
+
+        [HttpPost("addFriend")]
+        public async Task<ActionResult<AddFriendResponse>> AddFriendAsync(AddFriendDTO addFriendDTO)
+        {
+            var result = await userRepo.AddFriendAsync(addFriendDTO);
+            return Ok(result);
+        }
+
+        [HttpPost("removeFriend")]
+        public async Task<ActionResult<RemoveFriendResponse>> RemoveFriendAsync(RemoveFriendDTO removeFriendDTO)
+        {
+            var result = await userRepo.RemoveFriendAsync(removeFriendDTO);
+            return Ok(result);
+        }
+
+        [HttpPost("acceptFriendRequest")]
+        public async Task<ActionResult<AcceptFriendRequestResponse>> AcceptFriendRequestAsync(AcceptFriendRequestDTO acceptFriendRequestDTO)
+        {
+            var result = await userRepo.AcceptFriendRequestAsync(acceptFriendRequestDTO);
             return Ok(result);
         }
     }
