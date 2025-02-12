@@ -1,13 +1,72 @@
 ﻿@page "/profile/{username}"
 @using Application.Services
 @using Domain.Models
+@using WebUI.State
 @inject IUserService userService;
 
-@if(userData != null)
-{
-    <h1>@userData.Username</h1>
-    <h1>@userData.Email</h1>
-}
+<MyHeader></MyHeader>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="main-container-profile">
+            @if (userData != null)
+            {
+                <div class="row-profile">
+                    <p>@userData.Username</p>
+                </div>
+
+                <div class="row-profile">
+                    @if (userData.MealsSaved!.Count == 0)
+                    {
+                        <div class="divText">
+                            <p class="insideDivText">Meals 0</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="divText">
+                            <p class="insideDivText">@userData.MealsSaved</p>
+                        </div>
+                    }
+                    <p>@userData.Friends!.Count friends</p>
+                    <p>@userData.CreatedTime Time</p>
+                </div>
+
+                <div @onclick="AddFriend" class="addFriendButton">
+                    <p class="insideDivText">Add Friend</p>
+                </div>
+            }
+        </div>
+    </Authorized>
+
+    <NotAuthorized>
+        <div class="main-container-profile">
+            @if (userData != null)
+            {
+                <div class="row-profile">
+                    <p>@userData.Username</p>
+                </div>
+
+                <div class="row-profile">
+                    @if (userData.MealsSaved!.Count == 0)
+                    {
+                        <div class="divText">
+                            <p class="insideDivText">Meals 0</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="divText">
+                            <p class="insideDivText">@userData.MealsSaved</p>
+                        </div>
+                    }
+                    <p>@userData.Friends!.Count friends</p>
+                    <p>@userData.CreatedTime Time</p>
+                </div>
+            }
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     [Parameter]
@@ -17,8 +76,23 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await userService.GetUserByNameService(new Application.DTOs.UserDTO.GetUserByName.GetUserByNameDTO { Username = username });
-        if (response.Flag == true)
-            userData = response.user;
+        if(username != null)
+        {
+            var response = await userService.GetUserByNameService(new Application.DTOs.UserDTO.GetUserByName.GetUserByNameDTO { Username = username });
+            if (response.Flag == true)
+                userData = response.user;
+        }
+    }
+
+    private async Task AddFriend()
+    {
+        var customAuthStateProvider = (CustomAuthStateProvider)authProvider;
+        var state = await customAuthStateProvider.GetAuthenticationStateAsync();
+
+
+        if(userData != null)
+        {
+            await userService.AddFriendService(new Application.DTOs.UserDTO.AddFriends.AddFriendDTO { NameWhoRecieved = userData!.Username!, NameWhoRequested = state.User.Identity!.Name! });
+        }
     }
 }

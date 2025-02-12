@@ -108,6 +108,14 @@ namespace Infastructure.RepositoryFile
             if(user2 == null)
                 return new AddFriendResponse(false, "User nu a fost gasit...");
 
+            if(user2.Friends != null)
+            {
+                var listOfFriends = user2.Friends.ToList();
+                foreach (var friend in listOfFriends)
+                    if (friend == addFriendDTO.NameWhoRequested)
+                        return new AddFriendResponse(false, "Deja sunteti prieten cu acest utilizator");
+            }
+
             user2.Inbox!.Add($"You have a friend request from: {addFriendDTO.NameWhoRequested}");
             user2.FriendsPending!.Add(addFriendDTO.NameWhoRequested);
             await _dbContext.SaveChangesAsync();
