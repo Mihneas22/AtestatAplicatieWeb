@@ -3,6 +3,7 @@ using Application.DTOs.AuthDTO.Register;
 using Application.DTOs.UserDTO.AcceptFriendsRequest;
 using Application.DTOs.UserDTO.AddFriends;
 using Application.DTOs.UserDTO.GetUserByName;
+using Application.DTOs.UserDTO.GetUserFriends;
 using Application.DTOs.UserDTO.RemoveFriends;
 using Application.Repository;
 using BCrypt.Net;
@@ -172,6 +173,22 @@ namespace Infastructure.RepositoryFile
                 return new GetUserByNameResponse(false, "User invalid...");
 
             return new GetUserByNameResponse(true, "User gasit!", user);
+        }
+
+        public async Task<GetFriendsUserResponse> GetUserFriendsAsync(GetUserFriendsDTO getUserFriendsDTO)
+        {
+            if (getUserFriendsDTO == null)
+                return new GetFriendsUserResponse(false, "Date invalide...");
+
+            var user = await _dbContext.UsersEntity.FirstOrDefaultAsync(u => u.Username == getUserFriendsDTO.Username);
+
+            if (user == null)
+                return new GetFriendsUserResponse(false, "User-ul nu a fost gasit...");
+
+            if (user.Friends!.Count == 0)
+                return new GetFriendsUserResponse(true, "Succes!", new List<string>());
+
+            return new GetFriendsUserResponse(true, "Succes!", user.Friends);
         }
     }
 }

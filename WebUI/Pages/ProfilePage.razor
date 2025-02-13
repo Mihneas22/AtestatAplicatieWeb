@@ -32,9 +32,12 @@
                     <p>@userData.CreatedTime Time</p>
                 </div>
 
-                <div @onclick="AddFriend" class="addFriendButton">
-                    <p class="insideDivText">Add Friend</p>
-                </div>
+                if(userFriends == false)
+                {
+                    <div @onclick="AddFriend" class="addFriendButton">
+                        <p class="insideDivText">Add Friend</p>
+                    </div>
+                }
             }
         </div>
     </Authorized>
@@ -74,13 +77,31 @@
 
     private User? userData { get; set; }
 
+    private bool userFriends { get; set; } = false;
+
     protected override async Task OnInitializedAsync()
     {
         if(username != null)
         {
             var response = await userService.GetUserByNameService(new Application.DTOs.UserDTO.GetUserByName.GetUserByNameDTO { Username = username });
+
             if (response.Flag == true)
+            {
+                var customAuthStateProvider = (CustomAuthStateProvider)authProvider;
+                var state = await customAuthStateProvider.GetAuthenticationStateAsync();
                 userData = response.user;
+                if (userData.Friends != null && userData.Friends.Count > 0 && state.User.Identity != null)
+                {
+                    foreach (var name in userData.Friends)
+                    {
+                        if (name == state.User.Identity.Name)
+                        {
+                            userFriends = true;
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -88,8 +109,6 @@
     {
         var customAuthStateProvider = (CustomAuthStateProvider)authProvider;
         var state = await customAuthStateProvider.GetAuthenticationStateAsync();
-
-
         if(userData != null)
         {
             await userService.AddFriendService(new Application.DTOs.UserDTO.AddFriends.AddFriendDTO { NameWhoRecieved = userData!.Username!, NameWhoRequested = state.User.Identity!.Name! });

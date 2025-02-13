@@ -3,6 +3,7 @@ using Application.DTOs.AuthDTO.Register;
 using Application.DTOs.UserDTO.AcceptFriendsRequest;
 using Application.DTOs.UserDTO.AddFriends;
 using Application.DTOs.UserDTO.GetUserByName;
+using Application.DTOs.UserDTO.GetUserFriends;
 using Application.DTOs.UserDTO.RemoveFriends;
 using Application.Repository;
 using Microsoft.AspNetCore.Http;
@@ -60,6 +61,13 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<GetUserByNameResponse>> GetUserByNameAsync(string username)
         {
             var result = await userRepo.GetUserByNameAsync(new GetUserByNameDTO { Username = username });
+            return Ok(result);
+        }
+
+        [HttpGet("getUserFriends/{username}")]
+        public async Task<ActionResult<GetFriendsUserResponse>> GetUserFriendsAsync(string username)
+        {
+            var result = await userRepo.GetUserFriendsAsync(new GetUserFriendsDTO { Username = username });
             return Ok(result);
         }
     }

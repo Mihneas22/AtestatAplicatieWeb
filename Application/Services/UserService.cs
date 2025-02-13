@@ -3,6 +3,7 @@ using Application.DTOs.AuthDTO.Register;
 using Application.DTOs.UserDTO.AcceptFriendsRequest;
 using Application.DTOs.UserDTO.AddFriends;
 using Application.DTOs.UserDTO.GetUserByName;
+using Application.DTOs.UserDTO.GetUserFriends;
 using Application.DTOs.UserDTO.RemoveFriends;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,13 @@ namespace Application.Services
         {
             var conn = await _httpClient.GetAsync($"api/user/getUserByName/{getUserByNameDTO.Username}");
             var result = await conn.Content.ReadFromJsonAsync<GetUserByNameResponse>();
+            return result!;
+        }
+
+        public async Task<GetFriendsUserResponse> GetUserFriendsService(GetUserFriendsDTO getUserFriendsDTO)
+        {
+            var conn = await _httpClient.GetAsync($"api/user/getUserFriends/{getUserFriendsDTO.Username}");
+            var result = await conn.Content.ReadFromJsonAsync<GetFriendsUserResponse>();
             return result!;
         }
 
