@@ -1,0 +1,30 @@
+﻿@using Application.Services
+@using Domain.Models
+@inject IMealService service;
+
+@if(mealData != null)
+{
+    <div class="container-meal">
+        <div class="title-text">@mealData.Name</div>
+
+        <div class="container-meal-row">
+            <div class="normal-text">@mealData.Description</div>
+
+            <div class="normal-text">@mealData.Likes</div>
+        </div>
+    </div>
+}
+
+@code{
+    [Parameter]
+    public string? mealName { get; set; }
+
+    private Meal? mealData { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await service.GetMealByNameService(new Application.DTOs.MealDTO.GetMealByName.GetMealByNameDTO { Name = mealName });
+        if (result.Flag == true)
+            mealData = result.meal;
+    }
+}

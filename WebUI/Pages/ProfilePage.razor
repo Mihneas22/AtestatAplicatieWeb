@@ -12,7 +12,7 @@
             @if (userData != null)
             {
                 <div class="row-profile">
-                    <p>@userData.Username</p>
+                    <div class="username-title">@userData.Username</div>
                 </div>
 
                 <div class="row-profile">
@@ -25,11 +25,11 @@
                     else
                     {
                         <div class="divText">
-                            <p class="insideDivText">@userData.MealsSaved</p>
+                            <p class="insideDivText">Meals @userData.MealsSaved.Count</p>
                         </div>
                     }
-                    <p>@userData.Friends!.Count friends</p>
-                    <p>@userData.CreatedTime Time</p>
+                    <div class="insideDivTextBlack">@userData.Friends!.Count friends</div>
+                    <div class="insideDivTextBlack">@userData.CreatedTime Time</div>
                 </div>
 
                 if(userFriends == false)
@@ -38,6 +38,19 @@
                         <p class="insideDivText">Add Friend</p>
                     </div>
                 }
+
+                <div class="mealRow">
+                    @if (userData.MealsSaved.Count > 0)
+                    {
+                        foreach (var meal in userData.MealsSaved)
+                        {
+                            if (meal != null)
+                            {
+                                <MealComponent mealName="@meal"></MealComponent>
+                            }
+                        }
+                    }
+                </div>
             }
         </div>
     </Authorized>
@@ -65,6 +78,19 @@
                     }
                     <p>@userData.Friends!.Count friends</p>
                     <p>@userData.CreatedTime Time</p>
+                </div>
+
+                <div class="mealRow">
+                    @if (userData.MealsSaved.Count > 0)
+                    {
+                        foreach (var meal in userData.MealsSaved)
+                        {
+                            if (meal != null)
+                            {
+                                <MealComponent>@meal</MealComponent>
+                            }
+                        }
+                    }
                 </div>
             }
         </div>

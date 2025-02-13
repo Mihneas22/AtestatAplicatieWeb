@@ -1,0 +1,32 @@
+﻿.container-meal{
+    width: 625px;
+    height: 225px;
+    margin: 25px;
+    background-color: gray;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.title-text {
+    font-family: 'DM-Sans';
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}
+
+.normal-text {
+    font-family: 'DM-Sans';
+    font-size: 20px;
+    font-weight: 300;
+    color: white;
+    text-align: center;
+}
+
+.container-meal-row{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}

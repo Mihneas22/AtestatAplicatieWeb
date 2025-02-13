@@ -1,6 +1,7 @@
 ﻿using Application.DTOs.MealDTO.AddLikeToMeal;
 using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
+using Application.DTOs.MealDTO.SaveMeal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace Application.Services
         Task<GetMealByNameResponse> GetMealByNameService(GetMealByNameDTO getMealByNameDTO);
     
         Task<AddLikeToMealResponse> AddLikeToMealService(AddLikeToMealDTO addLikeToMealDTO);
+
+        Task<SaveMealResponse> SaveMealService(SaveMealDTO saveMealDTO);
     }
 }

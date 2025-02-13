@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Application.DTOs.FoodDTO.AddFood;
 using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.AddLikeToMeal;
+using Application.DTOs.MealDTO.SaveMeal;
 
 namespace Infastructure.RepositoryFile
 {
@@ -105,6 +106,21 @@ namespace Infastructure.RepositoryFile
             int r = rnd.Next(mealList.Count);
 
             return new GetRandomMealResponse(true, "Succes!", mealList[r]);
+        }
+
+        public async Task<SaveMealResponse> SaveMealAsync(SaveMealDTO saveMealDTO)
+        {
+            if (saveMealDTO == null)
+                return new SaveMealResponse(false, "Date invalide...");
+
+            var user = await _dbContext.UsersEntity.FirstOrDefaultAsync(u => u.Username == saveMealDTO.username);
+
+            if(user == null)
+                return new SaveMealResponse(false, "User inexistent...");
+
+            user.MealsSaved!.Add(saveMealDTO.mealName);
+            await _dbContext.SaveChangesAsync();
+            return new SaveMealResponse(true, "Succes!");
         }
     }
 }

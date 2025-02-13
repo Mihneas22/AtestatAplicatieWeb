@@ -2,6 +2,7 @@
 using Application.DTOs.MealDTO.AddMeal;
 using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
+using Application.DTOs.MealDTO.SaveMeal;
 
 namespace Application.Repository
 {
@@ -14,5 +15,7 @@ namespace Application.Repository
         Task<GetMealByNameResponse> GetMealByNameAsync(GetMealByNameDTO getMealByNameDTO);
 
         Task<AddLikeToMealResponse> AddLikeToMealAsync(AddLikeToMealDTO addLikeToMealDTO);
+
+        Task<SaveMealResponse> SaveMealAsync(SaveMealDTO saveMealDTO);
     }
 }

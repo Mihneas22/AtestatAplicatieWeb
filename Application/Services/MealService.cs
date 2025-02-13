@@ -2,6 +2,7 @@
 using Application.DTOs.MealDTO.AddLikeToMeal;
 using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
+using Application.DTOs.MealDTO.SaveMeal;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,14 @@ namespace Application.Services
         {
             var conn = await _httpClient.PostAsJsonAsync("api/meal/addLikeToMeal",addLikeToMealDTO);
             var result = await conn.Content.ReadFromJsonAsync<AddLikeToMealResponse>();
+
+            return result!;
+        }
+
+        public async Task<SaveMealResponse> SaveMealService(SaveMealDTO saveMealDTO)
+        {
+            var conn = await _httpClient.PostAsJsonAsync("api/meal/saveMeal", saveMealDTO);
+            var result = await conn.Content.ReadFromJsonAsync<SaveMealResponse>();
 
             return result!;
         }

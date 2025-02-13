@@ -8,6 +8,14 @@
     flex-direction: column;
 }
 
+.username-title {
+    font-family: 'DM-Sans';
+    font-size: 60px;
+    font: bold;
+    color: black;
+    text-align: center;
+}
+
 .row-profile{
     width: 30%;
     display: flex;
@@ -30,12 +38,18 @@
     text-align: center;
 }
 
+.insideDivTextBlack {
+    font-family: 'DM-Sans';
+    font-size: 20px;
+    color: black;
+    text-align: center;
+}
+
 .divText {
     width: 150px;
     height: 40px;
     display: flex;
     justify-content: center;
-    align-items: center;
     background-color: gray;
     border-radius: 10px;
 }
@@ -48,4 +62,11 @@
     align-items: center;
     background-color: dodgerblue;
     border-radius: 10px;
+}
+
+.mealRow{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

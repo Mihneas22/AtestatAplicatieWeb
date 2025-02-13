@@ -2,6 +2,7 @@
 using Application.DTOs.MealDTO.AddMeal;
 using Application.DTOs.MealDTO.GetMealByName;
 using Application.DTOs.MealDTO.GetRandomMeal;
+using Application.DTOs.MealDTO.SaveMeal;
 using Application.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,13 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<AddLikeToMealResponse>> AddLikeToMealAsync(AddLikeToMealDTO addLikeToMealDTO)
         {
             var result = await mealRepo.AddLikeToMealAsync(addLikeToMealDTO);
+            return Ok(result);
+        }
+
+        [HttpPost("saveMeal")]
+        public async Task<ActionResult<SaveMealResponse>> SaveMealAsync(SaveMealDTO saveMealDTO)
+        {
+            var result = await mealRepo.SaveMealAsync(saveMealDTO);
             return Ok(result);
         }
 
